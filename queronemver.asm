@@ -7,6 +7,12 @@ main: 	; Program entry
 	push ebp
 	mov ebp, esp
 	sub esp, 20
+	push rotuloString1
+	call printf
+	add esp, 4
+	push rotuloStringLN
+	call printf
+	add esp, 4
 	push 1
 	pop eax
 	mov dword[ebp-0], eax
@@ -19,6 +25,9 @@ main: 	; Program entry
 	push 0
 	pop eax
 	mov dword[ebp-8], eax
+	push rotuloString2
+	call printf
+	add esp, 4
 	mov edx, ebp
 	lea eax, [edx - 16]
 	push eax
@@ -42,16 +51,16 @@ main: 	; Program entry
 	push 2
 	pop eax
 	mov dword[ebp-12], eax
-rotuloWHILE1: 	push dword[ebp-12]
+rotuloWHILE3: 	push dword[ebp-12]
 	push dword[ebp-16]
 	pop eax
 	cmp dword [esp], eax
-	jg rotuloFalsoREL3
+	jg rotuloFalsoREL5
 	mov dword [esp], 1
-	jmp rotuloSaidaREL4
-rotuloFalsoREL3: 	mov dword [esp], 0
-rotuloSaidaREL4: 	cmp dword[esp], 0
-	je rotuloFIMWHILE2
+	jmp rotuloSaidaREL6
+rotuloFalsoREL5: 	mov dword [esp], 0
+rotuloSaidaREL6: 	cmp dword[esp], 0
+	je rotuloFIMWHILE4
 	push dword[ebp-0]
 	push dword[ebp-4]
 	pop eax
@@ -77,11 +86,13 @@ rotuloSaidaREL4: 	cmp dword[esp], 0
 	add dword[esp], eax
 	pop eax
 	mov dword[ebp-12], eax
-	jmp rotuloWHILE1
-rotuloFIMWHILE2: 	leave
+	jmp rotuloWHILE3
+rotuloFIMWHILE4: 	leave
 	ret
 
 section .data
 
-@Integer: db '%d',0
+rotuloString1: db '----------FIBONACCI------------ ',0
 rotuloStringLN: db '', 10,0
+rotuloString2: db 'Informe a quantidade de numeros que deseja ver da sequencia fibonacci:  ',0
+@Integer: db '%d',0
